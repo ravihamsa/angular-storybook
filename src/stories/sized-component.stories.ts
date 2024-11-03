@@ -218,7 +218,7 @@ export const LargeBothIconsCustomClass: Story = {
     size: Size.large,
     prefixIcon: 'borneo-icon-16-search',
     suffixIcon: 'borneo-icon-16-arrow-down',
-    label: 'Large Both Icons Interactive',
+    label: 'Large Both Icons Custom class',
     customClass: 'bg-red-500 text-white',
   },
   render: renderFn,
