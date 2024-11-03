@@ -1,49 +1,166 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { fn } from '@storybook/test';
 
-import { ButtonComponent } from './button.component';
+import { ButtonComponent, Variant } from '../app/button/button.component';
+import { Size } from '../app/sized-container/sized-container.component';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta: Meta<ButtonComponent> = {
   title: 'Example/Button',
   component: ButtonComponent,
   tags: ['autodocs'],
-  argTypes: {
-    backgroundColor: {
-      control: 'color',
-    },
-  },
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-  args: { onClick: fn() },
+  args: { click: fn() },
 };
 
 export default meta;
 type Story = StoryObj<ButtonComponent>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary: Story = {
+export const PrimaryLarge: Story = {
   args: {
-    primary: true,
-    label: 'Button',
+    label: 'Button label',
+    size: Size.large,
+    variant: Variant.primary,
   },
 };
 
-export const Secondary: Story = {
+export const PrimaryMedium: Story = {
   args: {
-    label: 'Button',
+    label: 'Button label',
+    size: Size.medium,
+    variant: Variant.primary,
+  },
+};
+export const PrimarySmall: Story = {
+  args: {
+    label: 'Button label',
+    size: Size.small,
+    variant: Variant.primary,
   },
 };
 
-export const Large: Story = {
+export const PrimaryLeftIcon: Story = {
   args: {
-    size: 'large',
-    label: 'Button',
+    label: 'Button label',
+    size: Size.medium,
+    prefixIcon: 'borneo-icon-16-plus-in-circle',
+    variant: Variant.primary,
+  },
+};
+export const PrimaryRightIcon: Story = {
+  args: {
+    label: 'Button label',
+    size: Size.medium,
+    suffixIcon: 'borneo-icon-16-plus-in-circle',
+    variant: Variant.primary,
   },
 };
 
-export const Small: Story = {
+export const PrimaryDisabled: Story = {
   args: {
-    size: 'small',
-    label: 'Button',
+    label: 'Button label',
+    variant: Variant.primary,
+    disabled: true,
+  },
+};
+
+// generate similar stories for the other variants
+export const SecondaryLarge: Story = {
+  args: {
+    label: 'Button label',
+    size: Size.large,
+    variant: Variant.secondary,
+  },
+};
+
+export const SecondaryMedium: Story = {
+  args: {
+    label: 'Button label',
+    size: Size.medium,
+    variant: Variant.secondary,
+  },
+};
+
+export const SecondarySmall: Story = {
+  args: {
+    label: 'Button label',
+    size: Size.small,
+    variant: Variant.secondary,
+  },
+};
+
+export const SecondaryLeftIcon: Story = {
+  args: {
+    label: 'Button label',
+    size: Size.medium,
+    prefixIcon: 'borneo-icon-16-plus-in-circle',
+    variant: Variant.secondary,
+  },
+};
+
+export const SecondaryRightIcon: Story = {
+  args: {
+    label: 'Button label',
+    size: Size.medium,
+    suffixIcon: 'borneo-icon-16-plus-in-circle',
+    variant: Variant.secondary,
+  },
+};
+
+export const SecondaryDisabled: Story = {
+  args: {
+    label: 'Button label',
+    variant: Variant.secondary,
+    disabled: true,
+  },
+};
+
+export const TertiaryLarge: Story = {
+  args: {
+    label: 'Button label',
+    size: Size.large,
+    variant: Variant.tertiary,
+  },
+};
+
+export const TertiaryMedium: Story = {
+  args: {
+    label: 'Button label',
+    size: Size.medium,
+    variant: Variant.tertiary,
+  },
+};
+
+export const TertiarySmall: Story = {
+  args: {
+    label: 'Button label',
+    size: Size.small,
+    variant: Variant.tertiary,
+  },
+};
+
+export const TertiaryLeftIcon: Story = {
+  args: {
+    label: 'Button label',
+    size: Size.medium,
+    prefixIcon: 'borneo-icon-16-plus-in-circle',
+    variant: Variant.tertiary,
+  },
+};
+
+export const TertiaryRightIcon: Story = {
+  args: {
+    label: 'Button label',
+    size: Size.medium,
+    suffixIcon: 'borneo-icon-16-plus-in-circle',
+    variant: Variant.tertiary,
+  },
+};
+
+export const TertiaryDisabled: Story = {
+  args: {
+    label: 'Button label',
+    variant: Variant.tertiary,
+    disabled: true,
   },
 };

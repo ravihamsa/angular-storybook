@@ -111,31 +111,8 @@ export class SizedContainerComponent {
     return classes.join(' ');
   }
 
-  public get classes() {
-    const classes = [
-      'inline-flex',
-      'rounded-lg',
-      'border',
-      'bg-background-neutral-screen',
-      'items-center',
-      'ring-1',
-      'ring-border-default',
-    ];
-
-    if (this.disabled()) {
-      classes.push('cursor-not-allowed');
-      classes.push('bg-background-neutral-300 text-content-secondary');
-    } else if (this.isInteractive()) {
-      classes.push(
-        'cursor-pointer selection-none hover:ring-border-hover focus-within:ring-2 focus-within:ring-border-active',
-      );
-    }
-    if (this.isError()) {
-      classes.push(
-        'ring-technical-red-default hover:ring-technical-red-transparent focus-within:ring-technical-red-default',
-      );
-    }
-
+  public get sizeClasses() {
+    const classes = [];
     switch (this.size()) {
       case Size.medium:
         classes.push('ts-body-2 py-[10px] h-10');
@@ -149,6 +126,36 @@ export class SizedContainerComponent {
       default:
         break;
     }
+    return classes.join(' ');
+  }
+
+  public get baseClasses() {
+    return [
+      'inline-flex',
+      'rounded-[6px]',
+      'bg-background-neutral-screen',
+      'items-center',
+      'ring-1',
+      'ring-border-default',
+    ];
+  }
+
+  public get classes() {
+    const classes = this.baseClasses;
+    if (this.disabled()) {
+      classes.push('cursor-not-allowed');
+      classes.push('bg-background-neutral-300 text-content-secondary');
+    } else if (this.isInteractive()) {
+      classes.push(
+        'cursor-pointer selection-none hover:ring-border-hover focus-within:ring-2 focus-within:ring-border-active',
+      );
+    }
+    if (this.isError()) {
+      classes.push(
+        'ring-technical-red-default hover:ring-technical-red-transparent focus-within:ring-technical-red-default',
+      );
+    }
+    classes.push(this.sizeClasses);
     if (this.customClass()) {
       classes.push(this.customClass());
     }
