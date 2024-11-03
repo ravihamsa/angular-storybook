@@ -37,6 +37,9 @@ export class SizedContainerComponent {
   prefixIcon = input<BorneoIcon | undefined>();
   suffixIcon = input<BorneoIcon | undefined>();
   isInteractive = input(false);
+  disabled = input(false);
+  isError = input(false);
+  customClass = input('');
 
   public get prefixIconClasses() {
     const classes = [];
@@ -119,9 +122,17 @@ export class SizedContainerComponent {
       'ring-border-default',
     ];
 
-    if (this.isInteractive()) {
+    if (this.disabled()) {
+      classes.push('cursor-not-allowed');
+      classes.push('bg-background-neutral-300 text-content-secondary');
+    } else if (this.isInteractive()) {
       classes.push(
         'cursor-pointer selection-none hover:ring-border-hover focus-within:ring-2 focus-within:ring-border-active',
+      );
+    }
+    if (this.isError()) {
+      classes.push(
+        'ring-technical-red-default hover:ring-technical-red-transparent focus-within:ring-technical-red-default',
       );
     }
 
@@ -138,7 +149,9 @@ export class SizedContainerComponent {
       default:
         break;
     }
-    console.log({ classes });
+    if (this.customClass()) {
+      classes.push(this.customClass());
+    }
     return classes.join(' ');
   }
 }

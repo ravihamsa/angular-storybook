@@ -27,19 +27,31 @@ const renderFn = ({
   prefixIcon,
   suffixIcon,
   label,
+  isInteractive,
+  disabled,
+  isError,
+  customClass = '',
 }: {
   size: Size;
   suffixIcon?: BorneoIcon;
   prefixIcon?: BorneoIcon;
   label?: string;
+  isInteractive?: boolean;
+  disabled?: boolean;
+  isError?: boolean;
+  customClass?: string;
 }) => ({
   props: {
     size,
     suffixIcon,
     prefixIcon,
     label,
+    isInteractive,
+    disabled,
+    isError,
+    customClass,
   },
-  template: `<app-sized-container [size]="size" [suffixIcon]="suffixIcon" [prefixIcon]="prefixIcon" [label]="label" ></app-sized-container>`,
+  template: `<app-sized-container [size]="size" [suffixIcon]="suffixIcon" [prefixIcon]="prefixIcon" [label]="label" [isInteractive]="isInteractive" [disabled]="disabled" [isError]="isError" [customClass]="customClass"></app-sized-container>`,
 });
 
 export const Large: Story = {
@@ -149,7 +161,8 @@ export const LargeBothIcons: Story = {
     size: Size.large,
     prefixIcon: 'borneo-icon-16-search',
     suffixIcon: 'borneo-icon-16-arrow-down',
-    label: 'Large Both Icons',
+    label: 'Large Both Icons Interactive',
+    isInteractive: true,
   },
   render: renderFn,
 };
@@ -159,7 +172,8 @@ export const MediumBothIcons: Story = {
     size: Size.medium,
     prefixIcon: 'borneo-icon-16-search',
     suffixIcon: 'borneo-icon-16-arrow-down',
-    label: 'Medium Both Icons',
+    label: 'Medium Both Icons Interactive',
+    isInteractive: true,
   },
   render: renderFn,
 };
@@ -169,7 +183,43 @@ export const SmallBothIcons: Story = {
     size: Size.small,
     prefixIcon: 'borneo-icon-16-search',
     suffixIcon: 'borneo-icon-16-arrow-down',
-    label: 'Small Both Icons',
+    label: 'Small Both Icons Interactive',
+    isInteractive: true,
+  },
+  render: renderFn,
+};
+
+export const LargeBothIconsDisabled: Story = {
+  args: {
+    size: Size.large,
+    prefixIcon: 'borneo-icon-16-search',
+    suffixIcon: 'borneo-icon-16-arrow-down',
+    label: 'Large Both Icons Interactive',
+    isInteractive: true,
+    disabled: true,
+  },
+  render: renderFn,
+};
+
+export const LargeBothIconsError: Story = {
+  args: {
+    size: Size.large,
+    prefixIcon: 'borneo-icon-16-search',
+    suffixIcon: 'borneo-icon-16-arrow-down',
+    label: 'Large Both Icons Interactive',
+    isInteractive: true,
+    isError: true,
+  },
+  render: renderFn,
+};
+
+export const LargeBothIconsCustomClass: Story = {
+  args: {
+    size: Size.large,
+    prefixIcon: 'borneo-icon-16-search',
+    suffixIcon: 'borneo-icon-16-arrow-down',
+    label: 'Large Both Icons Interactive',
+    customClass: 'bg-red-500 text-white',
   },
   render: renderFn,
 };
