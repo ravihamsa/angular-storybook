@@ -1,0 +1,576 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'borneo-fonts';
+  src: url('icon-font/borneo-fonts.eot');
+  src:
+    url('icon-font/borneo-fonts.eot?#iefix') format('embedded-opentype'),
+    url('icon-font/borneo-fonts.woff') format('woff'),
+    url('icon-font/borneo-fonts.ttf') format('truetype'),
+    url('icon-font/borneo-fonts.svg#borneo-fonts') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[data-icon]:before {
+  font-family: 'borneo-fonts' !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^='borneo-icon-']:before,
+[class*=' borneo-icon-']:before {
+  font-family: 'borneo-fonts' !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class*='borneo-icon-12'] {
+  display: block;
+  height: 0.75rem;
+  width: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 0.75rem;
+}
+
+[class*='borneo-icon-14'] {
+  display: block;
+  height: 0.875rem;
+  width: 0.875rem;
+  font-size: 0.875rem;
+  line-height: 0.875rem;
+}
+
+[class*='borneo-icon-16'] {
+  display: block;
+  height: 1rem;
+  width: 1rem;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+
+[class*='borneo-icon-24'] {
+  display: block;
+  height: 1.5rem;
+  width: 1.5rem;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+}
+
+.borneo-icon-14-arrow-down:before {
+  content: '\61';
+}
+.borneo-icon-14-arrow-left:before {
+  content: '\62';
+}
+.borneo-icon-14-arrow-right:before {
+  content: '\63';
+}
+.borneo-icon-14-arrow-top-right-box:before {
+  content: '\64';
+}
+.borneo-icon-14-arrow-up:before {
+  content: '\65';
+}
+.borneo-icon-14-checkmark:before {
+  content: '\66';
+}
+.borneo-icon-14-close:before {
+  content: '\67';
+}
+.borneo-icon-14-edit:before {
+  content: '\68';
+}
+.borneo-icon-14-info:before {
+  content: '\69';
+}
+.borneo-icon-14-info-box:before {
+  content: '\6a';
+}
+.borneo-icon-14-line:before {
+  content: '\6b';
+}
+.borneo-icon-14-minus-in-circle:before {
+  content: '\6c';
+}
+.borneo-icon-14-plus-in-circle:before {
+  content: '\6d';
+}
+.borneo-icon-14-question:before {
+  content: '\6e';
+}
+.borneo-icon-14-question-box:before {
+  content: '\6f';
+}
+.borneo-icon-14-search:before {
+  content: '\70';
+}
+.borneo-icon-14-triangle-down:before {
+  content: '\71';
+}
+.borneo-icon-14-x-in-circle:before {
+  content: '\72';
+}
+.borneo-icon-16-3d:before {
+  content: '\73';
+}
+.borneo-icon-16-add-green:before {
+  content: '\74';
+}
+.borneo-icon-16-arrow-down:before {
+  content: '\75';
+}
+.borneo-icon-16-arrow-left:before {
+  content: '\76';
+}
+.borneo-icon-16-arrow-right:before {
+  content: '\77';
+}
+.borneo-icon-16-arrow-top-right-box:before {
+  content: '\78';
+}
+.borneo-icon-16-arrow-up:before {
+  content: '\79';
+}
+.borneo-icon-16-arrows:before {
+  content: '\7a';
+}
+.borneo-icon-16-bookmark:before {
+  content: '\41';
+}
+.borneo-icon-16-branch:before {
+  content: '\42';
+}
+.borneo-icon-16-calendar:before {
+  content: '\43';
+}
+.borneo-icon-16-checkmark:before {
+  content: '\44';
+}
+.borneo-icon-16-checkmark-box:before {
+  content: '\45';
+}
+.borneo-icon-16-filter:before {
+  content: '\46';
+}
+.borneo-icon-16-edit:before {
+  content: '\47';
+}
+.borneo-icon-16-download:before {
+  content: '\48';
+}
+.borneo-icon-16-document:before {
+  content: '\49';
+}
+.borneo-icon-16-database:before {
+  content: '\4a';
+}
+.borneo-icon-16-dashboard:before {
+  content: '\4c';
+}
+.borneo-icon-16-copy:before {
+  content: '\4d';
+}
+.borneo-icon-16-compliance:before {
+  content: '\4e';
+}
+.borneo-icon-16-close:before {
+  content: '\4f';
+}
+.borneo-icon-16-clear-gray:before {
+  content: '\50';
+}
+.borneo-icon-16-circle:before {
+  content: '\51';
+}
+.borneo-icon-16-checkmark-in-circle:before {
+  content: '\52';
+}
+.borneo-icon-16-flame:before {
+  content: '\53';
+}
+.borneo-icon-16-info-box:before {
+  content: '\54';
+}
+.borneo-icon-16-info-in-circle:before {
+  content: '\55';
+}
+.borneo-icon-16-infrastructure:before {
+  content: '\56';
+}
+.borneo-icon-16-language:before {
+  content: '\57';
+}
+.borneo-icon-16-list:before {
+  content: '\58';
+}
+.borneo-icon-16-logout:before {
+  content: '\59';
+}
+.borneo-icon-16-menu:before {
+  content: '\5a';
+}
+.borneo-icon-16-minus-in-circle:before {
+  content: '\30';
+}
+.borneo-icon-16-plus:before {
+  content: '\31';
+}
+.borneo-icon-16-privacy-ops:before {
+  content: '\32';
+}
+.borneo-icon-16-profile:before {
+  content: '\33';
+}
+.borneo-icon-16-question-in-circle:before {
+  content: '\34';
+}
+.borneo-icon-16-warning-box:before {
+  content: '\35';
+}
+.borneo-icon-16-scan-eye:before {
+  content: '\36';
+}
+.borneo-icon-16-save:before {
+  content: '\37';
+}
+.borneo-icon-16-eye:before {
+  content: '\38';
+}
+.borneo-icon-16-x-in-circle:before {
+  content: '\39';
+}
+.borneo-icon-16-trash:before {
+  content: '\21';
+}
+.borneo-icon-16-support:before {
+  content: '\22';
+}
+.borneo-icon-16-settings:before {
+  content: '\23';
+}
+.borneo-icon-16-search:before {
+  content: '\24';
+}
+.borneo-icon-16-scheme:before {
+  content: '\26';
+}
+.borneo-icon-16-reports:before {
+  content: '\28';
+}
+.borneo-icon-16-error-box:before {
+  content: '\29';
+}
+.borneo-icon-16-plus-in-circle:before {
+  content: '\2a';
+}
+.borneo-icon-16-lock:before {
+  content: '\2b';
+}
+.borneo-icon-16-refresh:before {
+  content: '\2c';
+}
+.borneo-icon-16-upload:before {
+  content: '\2d';
+}
+.borneo-icon-16-timer:before {
+  content: '\2e';
+}
+.borneo-icon-16-user-edit:before {
+  content: '\3a';
+}
+.borneo-icon-16-list-details:before {
+  content: '\25';
+}
+.borneo-icon-16-search-1:before {
+  content: '\3d';
+}
+.borneo-icon-16-infotype:before {
+  content: '\3e';
+}
+.borneo-icon-16-infotype-off:before {
+  content: '\3f';
+}
+.borneo-icon-16-pause:before {
+  content: '\40';
+}
+.borneo-icon-16-play:before {
+  content: '\5b';
+}
+.borneo-icon-24-arrow-down:before {
+  content: '\5f';
+}
+.borneo-icon-24-arrow-left:before {
+  content: '\60';
+}
+.borneo-icon-24-arrow-right:before {
+  content: '\7b';
+}
+.borneo-icon-24-arrow-top-right-box:before {
+  content: '\7c';
+}
+.borneo-icon-24-arrow-up:before {
+  content: '\7d';
+}
+.borneo-icon-24-attention:before {
+  content: '\7e';
+}
+.borneo-icon-24-checkmark:before {
+  content: '\5c';
+}
+.borneo-icon-24-checkmark-in-circle:before {
+  content: '\e000';
+}
+.borneo-icon-24-circle:before {
+  content: '\e001';
+}
+.borneo-icon-24-close:before {
+  content: '\e002';
+}
+.borneo-icon-24-edit:before {
+  content: '\e003';
+}
+.borneo-icon-24-info:before {
+  content: '\e004';
+}
+.borneo-icon-24-minus-in-circle:before {
+  content: '\e005';
+}
+.borneo-icon-24-plus:before {
+  content: '\e006';
+}
+.borneo-icon-24-plus-in-circle:before {
+  content: '\e007';
+}
+.borneo-icon-24-question:before {
+  content: '\e008';
+}
+.borneo-icon-24-search:before {
+  content: '\e009';
+}
+.borneo-icon-24-warning:before {
+  content: '\e00a';
+}
+.borneo-icon-24-x-in-circle:before {
+  content: '\e00b';
+}
+.borneo-icon-12-arrow-down:before {
+  content: '\e00c';
+}
+.borneo-icon-12-arrow-left:before {
+  content: '\e00d';
+}
+.borneo-icon-12-arrow-right:before {
+  content: '\e00e';
+}
+.borneo-icon-12-arrow-top-right-box:before {
+  content: '\e00f';
+}
+.borneo-icon-12-arrow-up:before {
+  content: '\e010';
+}
+.borneo-icon-12-checkmark:before {
+  content: '\e011';
+}
+.borneo-icon-12-close:before {
+  content: '\e012';
+}
+.borneo-icon-12-edit:before {
+  content: '\e013';
+}
+.borneo-icon-12-info:before {
+  content: '\e014';
+}
+.borneo-icon-12-line:before {
+  content: '\e016';
+}
+.borneo-icon-12-minus-in-circle:before {
+  content: '\e017';
+}
+.borneo-icon-12-plus-in-circle:before {
+  content: '\e018';
+}
+.borneo-icon-12-question:before {
+  content: '\e019';
+}
+.borneo-icon-12-triangle-down:before {
+  content: '\e01c';
+}
+.borneo-icon-12-x-in-circle:before {
+  content: '\e01d';
+}
+.borneo-icon-12-search:before {
+  content: '\e015';
+}
+.borneo-icon-12-info-box:before {
+  content: '\e01a';
+}
+.borneo-icon-12-question-box:before {
+  content: '\e01b';
+}
+.borneo-icon-16-sort-all:before {
+  content: '\e01f';
+}
+.borneo-icon-16-sort-ascending:before {
+  content: '\e020';
+}
+.borneo-icon-16-sort-descending:before {
+  content: '\e021';
+}
+.borneo-icon-16-scan:before {
+  content: '\27';
+}
+.borneo-icon-16-data-discovery:before {
+  content: '\4b';
+}
+.borneo-icon-16-user-x:before {
+  content: '\5e';
+}
+.borneo-icon-16-user-check:before {
+  content: '\5d';
+}
+.borneo-icon-12-warning:before {
+  content: '\e024';
+}
+.borneo-icon-12-checkmark-in-circle:before {
+  content: '\e025';
+}
+.borneo-icon-16-password-user:before {
+  content: '\e022';
+}
+.borneo-icon-16-once:before {
+  content: '\e026';
+}
+.borneo-icon-16-book:before {
+  content: '\e027';
+}
+.borneo-icon-16-message:before {
+  content: '\e01e';
+}
+.borneo-icon-16-view-scan-log:before {
+  content: '\e028';
+}
+.borneo-icon-12-arrow-down-1:before {
+  content: '\e029';
+}
+.borneo-icon-12-arrow-up-1:before {
+  content: '\e02a';
+}
+.borneo-icon-16-chevron-three:before {
+  content: '\e02b';
+}
+.borneo-icon-16-chevron-three-diag:before {
+  content: '\e02c';
+}
+.borneo-icon-16-chevron-two:before {
+  content: '\e02d';
+}
+.borneo-icon-16-star:before {
+  content: '\e02e';
+}
+.borneo-icon-16-home:before {
+  content: '\e02f';
+}
+.borneo-icon-16-users:before {
+  content: '\e030';
+}
+.borneo-icon-16-organization:before {
+  content: '\e031';
+}
+.borneo-icon-16-file-upload:before {
+  content: '\e032';
+}
+.borneo-icon-16-drag-drop:before {
+  content: '\e033';
+}
+.borneo-icon-16-atlassian-icon:before {
+  content: '\e036';
+}
+.borneo-icon-16-data-subject:before {
+  content: '\e037';
+}
+.borneo-icon-16-reset:before {
+  content: '\e035';
+}
+.borneo-icon-16-puzzle:before {
+  content: '\e039';
+}
+.borneo-icon-16-link:before {
+  content: '\e03b';
+}
+.borneo-icon-16-folder:before {
+  content: '\e03c';
+}
+.borneo-icon-16-flame-off:before {
+  content: '\e03d';
+}
+.borneo-icon-16-key:before {
+  content: '\e03e';
+}
+.borneo-icon-16-globe:before {
+  content: '\e03f';
+}
+.borneo-icon-16-tags:before {
+  content: '\e040';
+}
+.borneo-icon-16-note:before {
+  content: '\e041';
+}
+.borneo-icon-16-file-download:before {
+  content: '\e042';
+}
+.borneo-icon-16-slack-icon:before {
+  content: '\e043';
+}
+.borneo-icon-12-trash:before {
+  content: '\e044';
+}
+.borneo-icon-12-file-download:before {
+  content: '\e045';
+}
+.borneo-icon-12-download:before {
+  content: '\e046';
+}
+.borneo-icon-12-filter:before {
+  content: '\e023';
+}
+.borneo-icon-16-user-minus:before {
+  content: '\e047';
+}
+.borneo-icon-16-user-plus:before {
+  content: '\e048';
+}
+.borneo-icon-16-hide:before {
+  content: '\e038';
+}
+.borneo-icon-24-file-download:before {
+  content: '\3b';
+}
+.borneo-icon-24-trash:before {
+  content: '\3c';
+}
+.borneo-icon-12-caret-down:before {
+  content: '\2f';
+}
+.borneo-icon-12-caret-up:before {
+  content: '\e034';
+}
+.borneo-icon-12-caret-up-down:before {
+  content: '\e03a';
+}
+.borneo-icon-12-scan:before {
+  content: '\e049';
+}

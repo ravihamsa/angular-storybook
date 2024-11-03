@@ -1,1 +1,109 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* typography */
+.ts-h1,
+h1,
+h1.bold,
+.ts-h1-bold {
+  font-size: 52px;
+  line-height: 66px;
+  font-weight: 700;
+}
+
+.ts-h2,
+h2,
+h2.semibold,
+.ts-h2-semibold {
+  font-weight: 600;
+  font-size: 38px;
+  line-height: 48px;
+  letter-spacing: -0.01em;
+}
+
+.ts-h3,
+h3 {
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.01em;
+}
+
+.ts-h3-semibold,
+h3.semibold {
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.01em;
+}
+
+.ts-h4,
+h4 {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+}
+
+.ts-h4-semibold,
+h4.semibold {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+}
+
+.ts-h5,
+h5,
+.ts-h5-medium,
+h5.medium {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+}
+
+.ts-body-2 {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.01em;
+}
+.ts-body-2-semibold {
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.ts-body-3 {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+}
+
+.ts-body-3-semibold {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+}
+.ts-caption,
+caption {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.01em;
+  text-align: left;
+}
+
+.ts-caption-semibold,
+caption.semibold {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -0.01em;
+  text-align: left;
+}
