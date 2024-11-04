@@ -21,19 +21,22 @@ export enum Size {
       <span [class]="prefixIconClasses">
         <span [class]="prefixIcon()"> </span>
       </span>
-      <div class="flex justify-between items-center">
-        {{ label() }}
-        <span [class]="suffixIconClasses">
-          <span [class]="suffixIcon()"> </span>
-        </span>
-      </div>
+      @if (label()) {
+        <div class="flex justify-between items-center">
+          {{ label() }}
+
+          <span [class]="suffixIconClasses">
+            <span [class]="suffixIcon()"> </span>
+          </span>
+        </div>
+      }
     </div>
   `,
   styleUrl: './sized-container.component.css',
 })
 export class SizedContainerComponent {
   size = input(Size.medium);
-  label = input('default label');
+  label = input('');
   prefixIcon = input<BorneoIcon | undefined>();
   suffixIcon = input<BorneoIcon | undefined>();
   isInteractive = input(false);
@@ -150,11 +153,17 @@ export class SizedContainerComponent {
         'cursor-pointer selection-none hover:ring-border-hover focus-within:ring-2 focus-within:ring-border-active',
       );
     }
+
     if (this.isError()) {
-      classes.push(
-        'ring-technical-red-default hover:ring-technical-red-transparent focus-within:ring-technical-red-default',
-      );
+      if (this.disabled()) {
+        classes.push('ring-technical-red-default');
+      } else {
+        classes.push(
+          'ring-technical-red-default hover:ring-technical-red-transparent focus-within:ring-technical-red-default',
+        );
+      }
     }
+
     classes.push(this.sizeClasses);
     if (this.customClass()) {
       classes.push(this.customClass());

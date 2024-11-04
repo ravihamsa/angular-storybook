@@ -9,6 +9,33 @@ const meta: Meta<ButtonComponent> = {
   title: 'Example/Button',
   component: ButtonComponent,
   tags: ['autodocs'],
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: Object.values(Variant),
+    },
+    size: {
+      control: 'select',
+      options: Object.values(Size),
+    },
+    prefixIcon: {
+      control: 'select',
+      options: [
+        'borneo-icon-16-plus-in-circle',
+        'borneo-icon-16-minus-in-circle',
+      ],
+    },
+    suffixIcon: {
+      control: 'select',
+      options: [
+        'borneo-icon-16-plus-in-circle',
+        'borneo-icon-16-minus-in-circle',
+      ],
+    },
+    disabled: {
+      control: 'boolean',
+    },
+  },
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: { click: fn() },
 };
@@ -162,5 +189,29 @@ export const TertiaryDisabled: Story = {
     label: 'Button label',
     variant: Variant.tertiary,
     disabled: true,
+  },
+};
+
+export const IconOnlyPrimary: Story = {
+  args: {
+    size: Size.medium,
+    prefixIcon: 'borneo-icon-16-plus-in-circle',
+    variant: Variant.primary,
+  },
+};
+
+export const IconOnlySecondary: Story = {
+  args: {
+    size: Size.medium,
+    prefixIcon: 'borneo-icon-16-plus-in-circle',
+    variant: Variant.secondary,
+  },
+};
+
+export const IconOnlyTertiary: Story = {
+  args: {
+    size: Size.medium,
+    prefixIcon: 'borneo-icon-16-plus-in-circle',
+    variant: Variant.tertiary,
   },
 };
