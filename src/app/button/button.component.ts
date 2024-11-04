@@ -1,9 +1,5 @@
-import { Component, EventEmitter, input, Output } from '@angular/core';
-import {
-  Size,
-  SizedContainerComponent,
-} from '../sized-container/sized-container.component';
-import { BorneoIcon } from '../../types/iconType';
+import { Component, EventEmitter, input, output, Output } from '@angular/core';
+import { SizedContainerComponent } from '../sized-container/sized-container.component';
 import { NgClass } from '@angular/common';
 
 export enum Variant {
@@ -37,8 +33,7 @@ export enum Variant {
 })
 export class ButtonComponent extends SizedContainerComponent {
   variant = input(Variant.primary);
-
-  @Output() click = new EventEmitter<Event>();
+  click = output<Event>();
 
   public override get classes() {
     const classes = this.baseClasses;
