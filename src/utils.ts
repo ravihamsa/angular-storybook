@@ -8,10 +8,10 @@ export const getStaticDataSource = (count: number) => {
   }));
 };
 
-export const getSingleSelectModel = (initialValue: string) => {
-  return new SelectionModel(false, [initialValue], true, isEqual);
+export const getSingleSelectModel = () => {
+  return new SelectionModel<any>(false, [], true, isEqual);
 };
 
-export const getMultiSelectModel = (initialValues: string[]) => {
-  return new SelectionModel(true, initialValues, true, isEqual);
+export const getMultiSelectModel = () => {
+  return new SelectionModel<any>(true, [], true, isEqual);
 };

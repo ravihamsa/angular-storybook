@@ -6,8 +6,7 @@ import {
 import { Size } from '../sized-container/sized-container.component';
 import { Observable } from 'rxjs';
 import { ItemListComponent } from '../item-list/item-list.component';
-import { SelectionModel } from '@angular/cdk/collections';
-import isEqual from 'lodash/isEqual';
+import { getSingleSelectModel } from '../../utils';
 
 @Component({
   selector: 'app-single-select-list',
@@ -28,7 +27,7 @@ import isEqual from 'lodash/isEqual';
 })
 export class SingleSelectListComponent implements OnInit {
   values = input<SelectItem['value'][]>([]);
-  selectionModel = new SelectionModel<string>(false, [], true, isEqual);
+  selectionModel = getSingleSelectModel();
   selectedValues = signal(this.selectionModel.selected);
   items = signal<SelectItem[]>([]);
   size = input(Size.medium);
@@ -38,12 +37,15 @@ export class SingleSelectListComponent implements OnInit {
     this.selectionModel.select(item.value);
   }
 
-  ngOnInit() {
-    this.selectedValues.set(this.selectionModel.selected);
+  subscribeForSelection() {
     this.selectionModel.changed.subscribe((change) => {
       this.selectedValues.set(this.selectionModel.selected);
     });
     this.selectionModel.select(...this.values());
+  }
+
+  ngOnInit() {
+    this.subscribeForSelection();
     const dataSource = this.dataSource();
     if (Array.isArray(dataSource)) {
       // Static data source
