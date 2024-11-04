@@ -1,4 +1,11 @@
-import { Component, computed, input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  OnInit,
+  output,
+  signal,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { SelectItem } from '../value-display/value-display.component';
 import {
@@ -6,6 +13,7 @@ import {
   SizedContainerComponent,
 } from '../sized-container/sized-container.component';
 import { NgFor } from '@angular/common';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-item-list',
@@ -17,9 +25,9 @@ import { NgFor } from '@angular/common';
         <app-sized-container
           label="{{ item?.label }}"
           [size]="size()"
-          customClass="ring-0 w-full hover:bg-background-neutral-100 rounded-0"
+          [customClass]="customClass(item)"
           suffixIcon="borneo-icon-16-arrow-top-right-box"
-          (click)="log(item)"
+          (click)="selectionChange.emit(item)"
         >
         </app-sized-container>
       </div>
@@ -29,26 +37,24 @@ import { NgFor } from '@angular/common';
   </div>`,
 })
 export class ItemListComponent implements OnInit {
-  log(item: any) {
-    console.log('Item clicked', item);
-  }
+  selectionChange = output<SelectItem>();
+  selectionModel = input<SelectionModel<string>>();
   values = input<SelectItem['value'][]>([]);
   items = signal<SelectItem[]>([]);
   size = input(Size.medium);
-  valueObjects = computed(() => {
-    return this.values()
-      .map((value) => {
-        console.log(value, 'value', this.items());
-        return this.items().find((item: SelectItem) => item.value === value);
-      })
-      .filter(Boolean);
-  });
   dataSource = input.required<any>();
   trackByFn = (_index: number, item: SelectItem) => item.value;
 
+  customClass(item: SelectItem) {
+    const classes = ['ring-0 w-full hover:bg-background-neutral-100 rounded-0'];
+    if (this.selectionModel()?.isSelected(item.value)) {
+      classes.push('bg-background-neutral-100');
+    }
+    return classes.join(' ');
+  }
+
   ngOnInit() {
     const dataSource = this.dataSource();
-    console.log({ dataSource });
     if (Array.isArray(dataSource)) {
       // Static data source
       this.items.set(dataSource);

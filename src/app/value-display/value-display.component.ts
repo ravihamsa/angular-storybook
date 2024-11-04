@@ -7,8 +7,8 @@ import {
 } from '../sized-container/sized-container.component';
 
 export type SelectItem = {
-  value: string | number;
-  label: string | number;
+  value: string;
+  label: string;
 };
 
 @Component({
@@ -35,7 +35,6 @@ export class ValueDisplayComponent implements OnInit {
   valueObjects = computed(() => {
     return this.values()
       .map((value) => {
-        console.log(value, 'value', this.items());
         return this.items().find((item: SelectItem) => item.value === value);
       })
       .filter(Boolean);
