@@ -1,4 +1,4 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input, OnInit, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SelectItem } from '../value-display/value-display.component';
 import {
@@ -11,13 +11,15 @@ import { NgFor } from '@angular/common';
   selector: 'app-item-list',
   standalone: true,
   imports: [SizedContainerComponent, NgFor],
-  template: ` <div class="flex flex-col gap-2">
+  template: ` <div class="flex flex-col shadow-2xl rounded-[6px] p-2">
     @if (items().length > 0) {
       <div *ngFor="let item of items(); index as i; trackBy: trackByFn">
         <app-sized-container
           label="{{ item?.label }}"
           [size]="size()"
-          prefixIcon="borneo-icon-16-arrow-top-right-box"
+          customClass="ring-0 w-full hover:bg-background-neutral-100 rounded-0"
+          suffixIcon="borneo-icon-16-arrow-top-right-box"
+          (click)="log(item)"
         >
         </app-sized-container>
       </div>
@@ -26,7 +28,10 @@ import { NgFor } from '@angular/common';
     }
   </div>`,
 })
-export class ItemListComponent {
+export class ItemListComponent implements OnInit {
+  log(item: any) {
+    console.log('Item clicked', item);
+  }
   values = input<SelectItem['value'][]>([]);
   items = signal<SelectItem[]>([]);
   size = input(Size.medium);
@@ -43,6 +48,7 @@ export class ItemListComponent {
 
   ngOnInit() {
     const dataSource = this.dataSource();
+    console.log({ dataSource });
     if (Array.isArray(dataSource)) {
       // Static data source
       this.items.set(dataSource);
