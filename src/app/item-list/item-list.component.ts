@@ -1,34 +1,32 @@
-import { Component, computed, input, OnInit, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NgFor } from '@angular/common';
+import { SelectItem } from '../value-display/value-display.component';
 import {
   Size,
   SizedContainerComponent,
 } from '../sized-container/sized-container.component';
-
-export type SelectItem = {
-  value: string | number;
-  label: string | number;
-};
+import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-value-display',
+  selector: 'app-item-list',
   standalone: true,
-  imports: [NgFor, SizedContainerComponent],
-  template: ` <div>
-    @if (valueObjects().length > 0) {
-      <app-sized-container
-        *ngFor="let item of valueObjects(); index as i; trackBy: trackByFn"
-        label="{{ item?.label }}"
-        [size]="size()"
-      >
-      </app-sized-container>
+  imports: [SizedContainerComponent, NgFor],
+  template: ` <div class="flex flex-col gap-2">
+    @if (items().length > 0) {
+      <div *ngFor="let item of items(); index as i; trackBy: trackByFn">
+        <app-sized-container
+          label="{{ item?.label }}"
+          [size]="size()"
+          prefixIcon="borneo-icon-16-arrow-top-right-box"
+        >
+        </app-sized-container>
+      </div>
     } @else {
-      <div>No values selected</div>
+      <div>No items selected</div>
     }
   </div>`,
 })
-export class ValueDisplayComponent implements OnInit {
+export class ItemListComponent {
   values = input<SelectItem['value'][]>([]);
   items = signal<SelectItem[]>([]);
   size = input(Size.medium);
