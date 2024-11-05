@@ -19,7 +19,7 @@ import { SelectionModel } from '@angular/cdk/collections';
   selector: 'app-item-list',
   standalone: true,
   imports: [SizedContainerComponent, NgFor],
-  template: ` <div class="flex flex-col shadow-2xl rounded-[6px] p-2">
+  template: ` <div class="flex flex-col shadow-2xl rounded-md p-2">
     @if (items().length > 0) {
       <div *ngFor="let item of items(); index as i; trackBy: trackByFn">
         <app-sized-container
@@ -46,7 +46,9 @@ export class ItemListComponent implements OnInit {
   trackByFn = (_index: number, item: SelectItem) => item.value;
 
   customClass(item: SelectItem) {
-    const classes = ['ring-0 w-full hover:bg-background-neutral-100 rounded-0'];
+    const classes = [
+      'ring-0 w-full hover:bg-background-neutral-100 rounded-none',
+    ];
     if (this.selectionModel()?.isSelected(item.value)) {
       classes.push('bg-background-neutral-100');
     }

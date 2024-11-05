@@ -135,7 +135,7 @@ export class SizedContainerComponent {
   public get baseClasses() {
     return [
       'inline-flex',
-      'rounded-[6px]',
+      'rounded-md',
       'bg-background-neutral-screen',
       'items-center',
       'ring-1',
