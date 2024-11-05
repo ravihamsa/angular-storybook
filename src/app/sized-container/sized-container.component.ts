@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { BorneoIcon } from '../../types/iconType';
+import { twMerge } from 'tailwind-merge';
 
 export enum Size {
   small = 'small',
@@ -165,9 +166,8 @@ export class SizedContainerComponent {
     }
 
     classes.push(this.sizeClasses);
-    if (this.customClass()) {
-      classes.push(this.customClass());
-    }
-    return classes.join(' ');
+    let classNameList = classes.join(' ');
+    classNameList = twMerge(classNameList, this.customClass());
+    return classNameList;
   }
 }
