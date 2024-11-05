@@ -33,7 +33,6 @@ export enum Size {
       }
     </div>
   `,
-  styleUrl: './sized-container.component.css',
 })
 export class SizedContainerComponent {
   size = input(Size.medium);
