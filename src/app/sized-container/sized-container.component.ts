@@ -140,33 +140,37 @@ export class SizedContainerComponent {
       'items-center',
       'ring-1',
       'ring-border-default',
-    ];
+    ].join(' ');
   }
 
   public get classes() {
-    const classes = this.baseClasses;
+    let classes = this.baseClasses;
     if (this.disabled()) {
-      classes.push('cursor-not-allowed');
-      classes.push('bg-background-neutral-300 text-content-secondary');
+      classes = twMerge(classes, 'cursor-not-allowed');
+      classes = twMerge(
+        classes,
+        'bg-background-neutral-300 text-content-secondary',
+      );
     } else if (this.isInteractive()) {
-      classes.push(
+      classes = twMerge(
+        classes,
         'cursor-pointer selection-none hover:ring-border-hover focus-within:ring-2 focus-within:ring-border-active',
       );
     }
 
     if (this.isError()) {
       if (this.disabled()) {
-        classes.push('ring-technical-red-default');
+        classes = twMerge(classes, 'ring-technical-red-default');
       } else {
-        classes.push(
+        classes = twMerge(
+          classes,
           'ring-technical-red-default hover:ring-technical-red-transparent focus-within:ring-technical-red-default',
         );
       }
     }
 
-    classes.push(this.sizeClasses);
-    let classNameList = classes.join(' ');
-    classNameList = twMerge(classNameList, this.customClass());
-    return classNameList;
+    classes = twMerge(classes, this.sizeClasses);
+    classes = twMerge(classes, this.customClass());
+    return classes;
   }
 }

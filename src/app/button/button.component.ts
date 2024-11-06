@@ -1,6 +1,7 @@
-import { Component, EventEmitter, input, output, Output } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { SizedContainerComponent } from '../sized-container/sized-container.component';
 import { NgClass } from '@angular/common';
+import { twMerge } from 'tailwind-merge';
 
 export enum Variant {
   primary = 'primary',
@@ -33,42 +34,54 @@ export enum Variant {
 })
 export class ButtonComponent extends SizedContainerComponent {
   variant = input(Variant.primary);
-  click = output<Event>();
+  @Output() click = new EventEmitter<Event>();
 
   public override get classes() {
-    const classes = this.baseClasses;
-    classes.push(this.sizeClasses);
+    let classes = this.baseClasses;
+    classes = twMerge(classes, this.sizeClasses);
 
     switch (this.variant()) {
       case Variant.primary:
         if (this.disabled()) {
-          classes.push('bg-background-neutral-300 text-content-tertiary');
+          classes = twMerge(
+            classes,
+            'bg-background-neutral-300 text-content-tertiary',
+          );
         } else {
-          classes.push(
+          classes = twMerge(
+            classes,
             'bg-content-primary hover:bg-content-primary-hover text-white ring-1 ring-transparent focus:ring-border-active',
           );
         }
         break;
       case Variant.secondary:
         if (this.disabled()) {
-          classes.push('bg-background-neutral-100 text-content-tertiary');
+          classes = twMerge(
+            classes,
+            'bg-background-neutral-100 text-content-tertiary',
+          );
         } else {
-          classes.push(
+          classes = twMerge(
+            classes,
             'bg-background-neutral-50 ring-1 ring-border-default text-content-primary hover:bg-background-neutral-100 hover:ring-border-default focus:ring-border-active',
           );
         }
         break;
       case Variant.tertiary:
         if (this.disabled()) {
-          classes.push('bg-background-neutral-100 text-content-tertiary');
+          classes = twMerge(
+            classes,
+            'bg-background-neutral-100 text-content-tertiary',
+          );
         } else {
-          classes.push(
+          classes = twMerge(
+            classes,
             'bg-background-neutral ring-1 ring-transparent text-content-primary hover:bg-background-neutral-100 hover:ring-border-default focus:ring-border-active',
           );
         }
         break;
     }
 
-    return classes.join(' ');
+    return classes;
   }
 }

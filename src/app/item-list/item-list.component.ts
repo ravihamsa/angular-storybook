@@ -1,9 +1,10 @@
 import {
   Component,
   computed,
+  EventEmitter,
   input,
   OnInit,
-  output,
+  Output,
   signal,
 } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -37,7 +38,7 @@ import { SelectionModel } from '@angular/cdk/collections';
   </div>`,
 })
 export class ItemListComponent implements OnInit {
-  selectionChange = output<SelectItem>();
+  @Output() selectionChange = new EventEmitter<SelectItem>();
   selectionModel = input<SelectionModel<string>>();
   values = input<SelectItem['value'][]>([]);
   items = signal<SelectItem[]>([]);
