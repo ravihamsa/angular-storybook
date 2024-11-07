@@ -1,51 +1,89 @@
-import { Component, computed, input } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
-import { NgForOf, NgIf } from '@angular/common';
-import { StyledInputComponent } from '../styled-input/styled-input.component';
+import {
+  AfterViewInit,
+  Component,
+  forwardRef,
+  Injector,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+} from '@angular/forms';
 import { Size } from '../sized-container/sized-container.component';
+import { NgIf } from '@angular/common';
+import { BorneoIcon } from '../../types/iconType';
 
 @Component({
   selector: 'app-form-field',
   standalone: true,
-  imports: [NgIf, NgForOf, StyledInputComponent],
-  template: `
-    <div class="flex flex-col gap-1">
-      <label [attr.for]="'for'" class="ts-body-3-semibold">{{ label() }}</label>
-      <ng-content select="input, select, textarea, [slot=input]"></ng-content>
-      <div *ngIf="caption" class="ts-caption">{{ caption() }}</div>
-      <!-- Error Display -->
-      <ng-container *ngIf="control()?.invalid && control()?.dirty">
-        <div class="error" *ngFor="let error of errorMessages()">
-          {{ error }}
-        </div>
-      </ng-container>
-    </div>
-  `,
+  template: ``,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => FormFieldComponent),
+      multi: true,
+    },
+  ],
+  imports: [NgIf],
 })
-export class FormFieldComponent {
-  label = input.required<string>();
-  size = input(Size.medium);
+export class FormFieldComponent<T>
+  implements ControlValueAccessor, OnInit, AfterViewInit
+{
+  log = (event: any) => {
+    console.log(event);
+  };
+  placeholder = input<string>('Enter Text');
+  value = input<T>();
   caption = input<string>();
-  control = input.required<AbstractControl>();
-  errorMessages = computed(() => {
-    const control = this.control();
-    console.log(control);
-    if (!control || !control.errors) return [];
+  label = input<string>();
+  name = input<string>('no-name');
+  size = input<Size>(Size.medium);
+  prefixIcon = input<BorneoIcon>();
+  suffixIcon = input<BorneoIcon>();
+  isError = input<boolean>(false);
 
-    return Object.keys(control.errors).map((key) => {
-      switch (key) {
-        case 'required':
-          return 'This field is required';
-        case 'minlength':
-          const minLengthConfig = control.errors?.['minlength'];
-          return `Minimum length is ${minLengthConfig?.requiredLength}`;
-        case 'maxlength':
-          const maxLengthConfig = control.errors?.['maxlength'];
-          return `Maximum length is ${maxLengthConfig?.requiredLength}`;
-        // Add more case statements as necessary
-        default:
-          return 'Invalid input';
-      }
-    });
-  });
+  valueCopy = signal<T | undefined>(undefined);
+  onChange = (value: T) => {};
+  onTouched = () => {};
+  formControl: FormControl<T> | null = null;
+
+  constructor(private injector: Injector) {}
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    console.log('registerOnTouched');
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {}
+
+  writeValue(value: T): void {
+    if (value) {
+      this.valueCopy.set(value);
+    } else {
+      this.valueCopy.set(undefined);
+    }
+  }
+
+  ngOnInit(): void {
+    this.valueCopy.set(this.value());
+  }
+  ngAfterViewInit() {
+    const model = this.injector.get(NgControl);
+    this.formControl = model.control as FormControl<T>;
+    console.log(this.formControl, model);
+  }
+
+  onInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.valueCopy.set(input.value as T);
+    this.onChange(this.valueCopy() as T); // Notify Angular form of the change
+  }
 }

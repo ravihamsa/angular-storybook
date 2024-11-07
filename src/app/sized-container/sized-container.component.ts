@@ -9,7 +9,7 @@ import {
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import { BorneoIcon } from '../../types/iconType';
 import { twMerge } from 'tailwind-merge';
-import { SizedTemplate } from '../../directives/sized-template';
+import { SizedTemplateDirective } from '../../directives/sized-template.directive';
 
 export enum Size {
   small = 'small',
@@ -52,7 +52,8 @@ export class SizedContainerComponent implements AfterContentInit {
   disabled = input(false);
   isError = input(false);
   customClass = input('');
-  @ContentChildren(SizedTemplate) templates!: QueryList<SizedTemplate>;
+  @ContentChildren(SizedTemplateDirective)
+  templates!: QueryList<SizedTemplateDirective>;
   public contentTemplate: TemplateRef<any> | null = null;
   public suffixTemplate: TemplateRef<any> | null = null;
   public prefixTemplate: TemplateRef<any> | null = null;

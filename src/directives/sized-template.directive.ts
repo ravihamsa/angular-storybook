@@ -5,7 +5,7 @@ import { Directive, Input, TemplateRef } from '@angular/core';
   standalone: true,
   host: {},
 })
-export class SizedTemplate {
+export class SizedTemplateDirective {
   @Input() type: string | undefined;
 
   @Input('sizedTemplate') name: string | undefined;

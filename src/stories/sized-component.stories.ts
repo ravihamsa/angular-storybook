@@ -1,15 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import { Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import {
   Size,
   SizedContainerComponent,
 } from '../app/sized-container/sized-container.component';
 import { BorneoIcon } from '../types/iconType';
-import { Variant } from '../app/button/button.component';
+import { StyledInputComponent } from '../app/styled-input/styled-input.component';
+import { SizedTemplateDirective } from '../directives/sized-template.directive';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta: Meta<SizedContainerComponent> = {
   title: 'Example/SizedContainer',
   component: SizedContainerComponent,
+  decorators: [
+    moduleMetadata({
+      declarations: [],
+      imports: [SizedTemplateDirective], // Any required modules
+    }),
+  ],
   tags: ['autodocs'],
   argTypes: {
     size: {
@@ -77,6 +84,31 @@ const renderFn = ({
   },
   template: `<app-sized-container [size]="size" [suffixIcon]="suffixIcon" [prefixIcon]="prefixIcon" [label]="label" [isInteractive]="isInteractive" [disabled]="disabled" [isError]="isError" [customClass]="customClass"></app-sized-container>`,
 });
+
+const renderFunWithTemplate = (args: any) => {
+  return {
+    props: {
+      ...args,
+      log: (e: Event) => {
+        console.log('clicked', e);
+      },
+    },
+    template: `<app-sized-container
+      [label]="label"
+      isInteractive="true"
+    >
+      <ng-template sizedTemplate="content">
+        <input type="text" placeholder="Enter text" class="outline-0" />
+      </ng-template>
+      <ng-template sizedTemplate="prefix">
+        <button (click)="log($event)" class="mr-2">prefix</button>
+      </ng-template>
+      <ng-template sizedTemplate="suffix">
+        <button (click)="log($event)" class="ml-2">suffix</button>
+      </ng-template>
+    </app-sized-container>`,
+  };
+};
 
 export const Large: Story = {
   args: {
@@ -246,4 +278,12 @@ export const LargeBothIconsCustomClass: Story = {
     customClass: 'bg-red-500 text-white',
   },
   render: renderFn,
+};
+
+export const ContainerWithTemplates: Story = {
+  args: {
+    size: Size.large,
+    label: 'ContainerWithTemplates',
+  },
+  render: renderFunWithTemplate,
 };
