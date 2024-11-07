@@ -31,17 +31,15 @@ export enum Size {
         <span *ngIf="!prefixTemplate" [class]="prefixIcon()"> </span>
         <ng-container *ngTemplateOutlet="prefixTemplate"></ng-container>
       </span>
-      @if (label()) {
-        <div class="flex justify-between w-full items-center">
-          <span *ngIf="!contentTemplate">{{ label() }}</span>
-          <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+      <div class="flex justify-between w-full items-center">
+        <span *ngIf="!contentTemplate">{{ label() }}</span>
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
 
-          <span [class]="suffixIconClasses">
-            <span *ngIf="!suffixTemplate" [class]="suffixIcon()"> </span>
-            <ng-container *ngTemplateOutlet="suffixTemplate"></ng-container>
-          </span>
-        </div>
-      }
+        <span [class]="suffixIconClasses">
+          <span *ngIf="!suffixTemplate" [class]="suffixIcon()"> </span>
+          <ng-container *ngTemplateOutlet="suffixTemplate"></ng-container>
+        </span>
+      </div>
     </div>
   `,
 })
