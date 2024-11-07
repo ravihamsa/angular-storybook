@@ -1,7 +1,15 @@
-import { Component, input } from '@angular/core';
-import { NgClass } from '@angular/common';
+import {
+  AfterContentInit,
+  Component,
+  ContentChildren,
+  input,
+  QueryList,
+  TemplateRef,
+} from '@angular/core';
+import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import { BorneoIcon } from '../../types/iconType';
 import { twMerge } from 'tailwind-merge';
+import { SizedTemplate } from '../../directives/sized-template';
 
 export enum Size {
   small = 'small',
@@ -12,7 +20,7 @@ export enum Size {
 @Component({
   selector: 'app-sized-container',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, NgTemplateOutlet, NgIf],
   template: `
     <div
       [ngClass]="classes"
@@ -20,29 +28,36 @@ export enum Size {
       [tabIndex]="isInteractive() ? -1 : null"
     >
       <span [class]="prefixIconClasses">
-        <span [class]="prefixIcon()"> </span>
+        <span *ngIf="!prefixTemplate" [class]="prefixIcon()"> </span>
+        <ng-container *ngTemplateOutlet="prefixTemplate"></ng-container>
       </span>
       @if (label()) {
-        <div class="flex justify-between items-center">
-          {{ label() }}
+        <div class="flex justify-between w-full items-center">
+          <span *ngIf="!contentTemplate">{{ label() }}</span>
+          <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
 
           <span [class]="suffixIconClasses">
-            <span [class]="suffixIcon()"> </span>
+            <span *ngIf="!suffixTemplate" [class]="suffixIcon()"> </span>
+            <ng-container *ngTemplateOutlet="suffixTemplate"></ng-container>
           </span>
         </div>
       }
     </div>
   `,
 })
-export class SizedContainerComponent {
+export class SizedContainerComponent implements AfterContentInit {
   size = input(Size.medium);
-  label = input('');
+  label = input<string | undefined>('');
   prefixIcon = input<BorneoIcon | undefined>();
   suffixIcon = input<BorneoIcon | undefined>();
   isInteractive = input(false);
   disabled = input(false);
   isError = input(false);
   customClass = input('');
+  @ContentChildren(SizedTemplate) templates!: QueryList<SizedTemplate>;
+  public contentTemplate: TemplateRef<any> | null = null;
+  public suffixTemplate: TemplateRef<any> | null = null;
+  public prefixTemplate: TemplateRef<any> | null = null;
 
   public get prefixIconClasses() {
     const classes = [];
@@ -172,5 +187,21 @@ export class SizedContainerComponent {
     classes = twMerge(classes, this.sizeClasses);
     classes = twMerge(classes, this.customClass());
     return classes;
+  }
+
+  ngAfterContentInit() {
+    this.templates.forEach((item) => {
+      switch (item.getType()) {
+        case 'content':
+          this.contentTemplate = item.template;
+          break;
+        case 'suffix':
+          this.suffixTemplate = item.template;
+          break;
+        case 'prefix':
+          this.prefixTemplate = item.template;
+          break;
+      }
+    });
   }
 }
