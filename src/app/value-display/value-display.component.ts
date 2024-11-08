@@ -1,4 +1,11 @@
-import { Component, computed, input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  OnInit,
+  signal,
+  TrackByFunction,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { NgFor } from '@angular/common';
 import {
@@ -17,12 +24,9 @@ export type SelectItem = {
   imports: [NgFor, SizedContainerComponent],
   template: ` <div>
     @if (valueObjects().length > 0) {
-      <app-sized-container
-        *ngFor="let item of valueObjects(); index as i; trackBy: trackByFn"
-        label="{{ item?.label }}"
-        [size]="size()"
-      >
-      </app-sized-container>
+      <span *ngFor="let item of valueObjects(); index as i; trackBy: trackByFn"
+        >{{ item?.label }}
+      </span>
     } @else {
       <div>No values selected</div>
     }
@@ -40,7 +44,8 @@ export class ValueDisplayComponent implements OnInit {
       .filter(Boolean);
   });
   dataSource = input.required<any>();
-  trackByFn = (_index: number, item: SelectItem) => item.value;
+  trackByFn: TrackByFunction<SelectItem> = (_index: number, item: SelectItem) =>
+    item.value;
 
   ngOnInit() {
     const dataSource = this.dataSource();

@@ -2,6 +2,7 @@ import {
   Component,
   computed,
   EventEmitter,
+  Input,
   input,
   OnInit,
   Output,
@@ -28,7 +29,7 @@ import { SelectionModel } from '@angular/cdk/collections';
           [size]="size()"
           [customClass]="customClass(item)"
           suffixIcon="borneo-icon-16-arrow-top-right-box"
-          (click)="selectionChange.emit(item)"
+          (click)="itemClick.emit(item)"
         >
         </app-sized-container>
       </div>
@@ -38,7 +39,7 @@ import { SelectionModel } from '@angular/cdk/collections';
   </div>`,
 })
 export class ItemListComponent implements OnInit {
-  @Output() selectionChange = new EventEmitter<SelectItem>();
+  @Output() itemClick = new EventEmitter<SelectItem>();
   selectionModel = input<SelectionModel<string>>();
   values = input<SelectItem['value'][]>([]);
   items = signal<SelectItem[]>([]);

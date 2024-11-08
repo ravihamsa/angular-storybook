@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   forwardRef,
+  inject,
   Injector,
   input,
   OnInit,
@@ -36,6 +37,7 @@ export class FormFieldComponent<T>
   log = (event: any) => {
     console.log(event);
   };
+  injector = inject(Injector);
   placeholder = input<string>('Enter Text');
   value = input<T>();
   caption = input<string>();
@@ -51,7 +53,7 @@ export class FormFieldComponent<T>
   onTouched = () => {};
   formControl: FormControl<T> | null = null;
 
-  constructor(private injector: Injector) {}
+  constructor() {}
 
   registerOnChange(fn: any): void {
     this.onChange = fn;
