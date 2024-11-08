@@ -22,7 +22,12 @@ import {
 import { NgForOf } from '@angular/common';
 import { ItemListComponent } from '../item-list/item-list.component';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ConnectedPosition, Overlay, OverlayRef } from '@angular/cdk/overlay';
+import {
+  CdkOverlayOrigin,
+  ConnectedPosition,
+  Overlay,
+  OverlayRef,
+} from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subscription } from 'rxjs';
 import { border } from 'polished';
@@ -66,6 +71,7 @@ import { border } from 'polished';
     NgForOf,
     ItemListComponent,
     ValueDisplayComponent,
+    CdkOverlayOrigin,
   ],
   providers: [
     {
@@ -76,7 +82,7 @@ import { border } from 'polished';
   ],
 })
 export class SingleSelectInputComponent extends FormFieldComponent<string> {
-  @ViewChild('trigger', { static: true }) trigger!: ElementRef;
+  @ViewChild('trigger', { read: ElementRef }) trigger!: ElementRef;
   @ViewChild('listTemplate') listTemplate!: TemplateRef<any>; // Reference to template
 
   overlayRef!: OverlayRef;
