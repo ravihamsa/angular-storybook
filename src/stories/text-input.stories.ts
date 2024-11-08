@@ -12,16 +12,18 @@ import { Component, computed, input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-text-input-wrapper',
   template: `<form [formGroup]="formGroup">
-    <app-text-input
-      [label]="label()"
-      [caption]="caption()"
-      [placeholder]="placeholder()"
-      [size]="size()"
-      [prefixIcon]="prefixIcon()"
-      [suffixIcon]="suffixIcon()"
-      formControlName="username"
-    >
-    </app-text-input>
+    <div class="grid grid-cols-2 gap-4">
+      <app-text-input
+        [label]="label()"
+        [caption]="caption()"
+        [placeholder]="placeholder()"
+        [size]="size()"
+        [prefixIcon]="prefixIcon()"
+        [suffixIcon]="suffixIcon()"
+        formControlName="username"
+      >
+      </app-text-input>
+    </div>
   </form>`,
   standalone: true,
   imports: [ReactiveFormsModule, TextInputComponent],

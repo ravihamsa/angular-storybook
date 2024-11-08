@@ -13,6 +13,7 @@ import {
   FormControl,
   NG_VALUE_ACCESSOR,
   NgControl,
+  Validators,
 } from '@angular/forms';
 import { Size } from '../sized-container/sized-container.component';
 import { NgIf } from '@angular/common';
@@ -80,7 +81,6 @@ export class FormFieldComponent<T>
   ngAfterViewInit() {
     const model = this.injector.get(NgControl);
     this.formControl = model.control as FormControl<T>;
-    console.log(this.formControl, model);
   }
 
   onInput(event: Event): void {
@@ -88,4 +88,6 @@ export class FormFieldComponent<T>
     this.valueCopy.set(input.value as T);
     this.onChange(this.valueCopy() as T); // Notify Angular form of the change
   }
+
+  protected readonly Validators = Validators;
 }

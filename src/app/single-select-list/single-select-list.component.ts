@@ -21,7 +21,7 @@ import { getSingleSelectModel } from '../../utils';
       [values]="selectedValues()"
       [selectionModel]="selectionModel"
       [dataSource]="dataSource()"
-      (selectionChange)="selectionChange($event)"
+      (itemClick)="selectionChange($event)"
     ></app-item-list>
   `,
 })

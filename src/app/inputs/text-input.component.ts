@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import {
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { SizedContainerComponent } from '../sized-container/sized-container.component';
 import { SizedTemplateDirective } from '../../directives/sized-template.directive';
 import { FormFieldComponent } from '../form-field/form-field.component';
@@ -11,7 +15,11 @@ import { twMerge } from 'tailwind-merge';
   selector: 'app-text-input',
   standalone: true,
   template: `
-    <app-control-wrapper [label]="label()" [caption]="caption()">
+    <app-control-wrapper
+      [label]="label()"
+      [caption]="caption()"
+      [required]="formControl?.hasValidator(Validators.required) === true"
+    >
       <app-sized-container
         [size]="size()"
         [suffixIcon]="suffixIcon()"

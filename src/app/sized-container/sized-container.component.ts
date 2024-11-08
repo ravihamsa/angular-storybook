@@ -22,11 +22,7 @@ export enum Size {
   standalone: true,
   imports: [NgClass, NgTemplateOutlet, NgIf],
   template: `
-    <div
-      [ngClass]="classes"
-      class="right-1"
-      [tabIndex]="isInteractive() ? -1 : null"
-    >
+    <div [ngClass]="classes" [tabIndex]="isInteractive() ? -1 : null">
       <span [class]="prefixIconClasses">
         <span *ngIf="!prefixTemplate" [class]="prefixIcon()"> </span>
         <ng-container *ngTemplateOutlet="prefixTemplate"></ng-container>
@@ -52,6 +48,7 @@ export class SizedContainerComponent implements AfterContentInit {
   disabled = input(false);
   isError = input(false);
   customClass = input('');
+  fullWidth = input(true);
   @ContentChildren(SizedTemplateDirective)
   templates!: QueryList<SizedTemplateDirective>;
   public contentTemplate: TemplateRef<any> | null = null;
@@ -148,7 +145,7 @@ export class SizedContainerComponent implements AfterContentInit {
 
   public get baseClasses() {
     return [
-      'inline-flex',
+      'flex',
       'rounded-md',
       'bg-background-neutral-screen',
       'items-center',
@@ -159,6 +156,9 @@ export class SizedContainerComponent implements AfterContentInit {
 
   public get classes() {
     let classes = this.baseClasses;
+    if (!this.fullWidth()) {
+      classes = twMerge(classes, 'inline-flex');
+    }
     if (this.disabled()) {
       classes = twMerge(classes, 'cursor-not-allowed');
       classes = twMerge(

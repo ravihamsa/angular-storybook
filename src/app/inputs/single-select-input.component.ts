@@ -9,7 +9,11 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import {
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { SizedContainerComponent } from '../sized-container/sized-container.component';
 import { SizedTemplateDirective } from '../../directives/sized-template.directive';
 import { FormFieldComponent } from '../form-field/form-field.component';
@@ -19,7 +23,7 @@ import {
   SelectItem,
   ValueDisplayComponent,
 } from '../value-display/value-display.component';
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { ItemListComponent } from '../item-list/item-list.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
@@ -30,13 +34,16 @@ import {
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subscription } from 'rxjs';
-import { border } from 'polished';
 
 @Component({
   selector: 'app-single-select-input',
   standalone: true,
   template: `
-    <app-control-wrapper [label]="label()" [caption]="caption()">
+    <app-control-wrapper
+      [label]="label()"
+      [caption]="caption()"
+      [required]="formControl?.hasValidator(Validators.required) === true"
+    >
       <app-sized-container
         #trigger
         [size]="size()"
@@ -48,10 +55,22 @@ import { border } from 'polished';
         (click)="openSelect()"
       >
         <ng-template sizedTemplate="content">
-          <app-value-display
-            [dataSource]="dataSource()"
-            [values]="valueCopy() ? [valueCopy() || ''] : []"
-          />
+          <div class="flex w-full justify-between items-center">
+            <app-value-display
+              [dataSource]="dataSource()"
+              [values]="valueCopy() ? [valueCopy() || ''] : []"
+              [placeholder]="placeholder()"
+            />
+            @if (canClear()) {
+              <span
+                *ngIf="valueCopy()"
+                class="cursor-pointer"
+                (click)="clearSelection()"
+              >
+                <span class="borneo-icon-16-clear-gray"></span>
+              </span>
+            }
+          </div>
         </ng-template>
       </app-sized-container>
     </app-control-wrapper>
@@ -72,6 +91,7 @@ import { border } from 'polished';
     ItemListComponent,
     ValueDisplayComponent,
     CdkOverlayOrigin,
+    NgIf,
   ],
   providers: [
     {
@@ -91,7 +111,8 @@ export class SingleSelectInputComponent extends FormFieldComponent<string> {
     { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom' },
   ];
   dataSource = input.required<any>();
-  selectionModel = new SelectionModel<string>(false, []);
+  selectionModel = new SelectionModel<string>(false, [], true);
+  canClear = input<boolean>(false);
   overlay = inject(Overlay);
   viewContainerRef = inject(ViewContainerRef);
   outsideClickSubscription!: Subscription;
@@ -110,6 +131,7 @@ export class SingleSelectInputComponent extends FormFieldComponent<string> {
       scrollStrategy,
       hasBackdrop: true, // Enables backdrop click detection
       backdropClass: 'cdk-overlay-transparent-backdrop', // Transparent backdrop
+      width: this.trigger.nativeElement.offsetWidth + 'px', // Set overlay width to trigger width
     });
 
     this.overlayRef.attach(
@@ -131,31 +153,31 @@ export class SingleSelectInputComponent extends FormFieldComponent<string> {
 
   override ngOnInit() {
     this.selectionModel.changed.subscribe((value) => {
-      if (value.added.length > 0) {
-        this.valueCopy.set(value.added[0]);
-      } else {
-        this.valueCopy.set(undefined);
-      }
+      const valueToSet = this.selectionModel.selected[0];
+      this.valueCopy.set(valueToSet);
+      this.onChange(valueToSet);
     });
-    const value = this.value();
+  }
+
+  override writeValue(value: string): void {
     if (value) {
       this.selectionModel.select(value);
+    } else {
+      this.selectionModel.clear();
     }
   }
 
-  public get inputClasses() {
-    let classes = 'outline-0';
-    if (this.formControl?.disabled) {
-      classes = twMerge(
-        classes,
-        'cursor-not-allowed bg-background-neutral-300',
-      );
-    }
-    if (this.formControl?.invalid) {
-      classes = twMerge(classes, 'border-technical-red-default');
-    }
-    return classes;
+  clearSelection() {
+    console.log('came to clear');
+    this.selectionModel.clear();
   }
-
-  protected readonly border = border;
 }
+
+// const tmp = new SelectionModel<number>(false, []);
+// tmp.changed.subscribe((value) => {
+//   console.log(value, 'changed');
+// });
+//
+// tmp.select(1);
+// tmp.select(2);
+// tmp.clear();

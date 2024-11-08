@@ -2,6 +2,7 @@ import {
   Component,
   computed,
   EventEmitter,
+  HostBinding,
   Input,
   input,
   OnInit,
@@ -16,12 +17,13 @@ import {
 } from '../sized-container/sized-container.component';
 import { NgFor } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
+import { twMerge } from 'tailwind-merge';
 
 @Component({
   selector: 'app-item-list',
   standalone: true,
   imports: [SizedContainerComponent, NgFor],
-  template: ` <div class="flex flex-col shadow-2xl rounded-md p-2">
+  template: `
     @if (items().length > 0) {
       <div *ngFor="let item of items(); index as i; trackBy: trackByFn">
         <app-sized-container
@@ -36,9 +38,11 @@ import { SelectionModel } from '@angular/cdk/collections';
     } @else {
       <div>No items selected</div>
     }
-  </div>`,
+  `,
 })
 export class ItemListComponent implements OnInit {
+  @HostBinding('class') class =
+    'bg-background-neutral-screen flex flex-col shadow-2xl rounded-md p-2 w-full';
   @Output() itemClick = new EventEmitter<SelectItem>();
   selectionModel = input<SelectionModel<string>>();
   values = input<SelectItem['value'][]>([]);
@@ -48,13 +52,14 @@ export class ItemListComponent implements OnInit {
   trackByFn = (_index: number, item: SelectItem) => item.value;
 
   customClass(item: SelectItem) {
-    const classes = [
-      'ring-0 w-full hover:bg-background-neutral-100 rounded-none',
-    ];
+    let classes = 'ring-0 w-full hover:bg-background-neutral-100 rounded-md';
     if (this.selectionModel()?.isSelected(item.value)) {
-      classes.push('bg-background-neutral-100');
+      classes = twMerge(
+        classes,
+        'bg-background-neutral-300 hover:bg-background-neutral-300',
+      );
     }
-    return classes.join(' ');
+    return classes;
   }
 
   ngOnInit() {

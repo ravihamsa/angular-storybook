@@ -28,13 +28,14 @@ export type SelectItem = {
         >{{ item?.label }}
       </span>
     } @else {
-      <div>No values selected</div>
+      <div class="text-content-tertiary">{{ placeholder() }}</div>
     }
   </div>`,
 })
 export class ValueDisplayComponent implements OnInit {
   values = input<SelectItem['value'][]>([]);
   items = signal<SelectItem[]>([]);
+  placeholder = input<string>('Select an item');
   size = input(Size.medium);
   valueObjects = computed(() => {
     return this.values()

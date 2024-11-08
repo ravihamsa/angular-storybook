@@ -14,18 +14,22 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-text-input-wrapper',
-  template: `<form [formGroup]="formGroup">
-    <app-single-select-input
-      [label]="label()"
-      [caption]="caption()"
-      [placeholder]="placeholder()"
-      [size]="size()"
-      [prefixIcon]="prefixIcon()"
-      [suffixIcon]="suffixIcon()"
-      [dataSource]="dataSource()"
-      formControlName="username"
-    >
-    </app-single-select-input>
+  template: `<form [formGroup]="formGroup" (submit)="onSubmit()">
+    <div class="grid grid-cols-3 gap-2">
+      <app-single-select-input
+        [label]="label()"
+        [caption]="caption()"
+        [placeholder]="placeholder()"
+        [size]="size()"
+        [prefixIcon]="prefixIcon()"
+        [suffixIcon]="suffixIcon()"
+        [dataSource]="dataSource()"
+        [canClear]="canClear()"
+        formControlName="username"
+      >
+      </app-single-select-input>
+    </div>
+    <!--    <button type="submit">click me</button>-->
   </form>`,
   standalone: true,
   imports: [ReactiveFormsModule, SingleSelectInputComponent],
@@ -39,6 +43,7 @@ class WrapperComponent implements OnInit {
   prefixIcon = input<string>('borneo-icon-16-search');
   suffixIcon = input<string>('borneo-icon-16-checkmark');
   disabled = input<boolean>(false);
+  canClear = input<boolean>(false);
   required = input<boolean>(false);
   dataSource = input<any>();
   formGroup: FormGroup = new FormGroup({});
@@ -54,6 +59,9 @@ class WrapperComponent implements OnInit {
         this.required() ? Validators.required : [],
       ],
     });
+  }
+  onSubmit() {
+    console.log(this.formGroup.value);
   }
   protected readonly FormGroup = FormGroup;
 }
@@ -121,5 +129,32 @@ export const WithSelection: Story = {
   args: {
     value: '2',
     dataSource: getStaticDataSource(10),
+  },
+};
+
+export const NoSelection: Story = {
+  args: {
+    value: '',
+    dataSource: getStaticDataSource(10),
+    label: 'No Selection',
+    placeholder: 'Custom placeholder',
+    caption: 'Please select an item',
+  },
+};
+
+export const CanClear: Story = {
+  args: {
+    value: '2',
+    dataSource: getStaticDataSource(10),
+    canClear: true,
+  },
+};
+
+export const CanClearRequired: Story = {
+  args: {
+    value: '2',
+    dataSource: getStaticDataSource(10),
+    canClear: true,
+    required: true,
   },
 };
