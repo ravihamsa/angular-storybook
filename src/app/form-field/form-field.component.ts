@@ -61,7 +61,6 @@ export class FormFieldComponent<T>
   }
 
   registerOnTouched(fn: any): void {
-    console.log('registerOnTouched');
     this.onTouched = fn;
   }
 

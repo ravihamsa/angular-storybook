@@ -17,9 +17,17 @@ export const IdValue: Story = {
   args: {
     values: ['2'],
     dataSource: getStaticDataSource(10),
+    variant: 'checkbox',
   },
 };
 
+export const IdValueDelete: Story = {
+  args: {
+    values: ['2'],
+    dataSource: getStaticDataSource(10),
+    variant: 'delete',
+  },
+};
 export const MultipleValues: Story = {
   args: {
     values: ['1', '2'],

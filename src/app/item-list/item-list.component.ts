@@ -18,11 +18,15 @@ import {
 import { NgFor } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { twMerge } from 'tailwind-merge';
+import { SizedTemplateDirective } from '../../directives/sized-template.directive';
+import { SelectionService } from '../services/selection.service';
+
+type ItemVariant = 'default' | 'checkbox' | 'delete';
 
 @Component({
   selector: 'app-item-list',
   standalone: true,
-  imports: [SizedContainerComponent, NgFor],
+  imports: [SizedContainerComponent, NgFor, SizedTemplateDirective],
   template: `
     @if (items().length > 0) {
       <div *ngFor="let item of items(); index as i; trackBy: trackByFn">
@@ -30,9 +34,24 @@ import { twMerge } from 'tailwind-merge';
           label="{{ item?.label }}"
           [size]="size()"
           [customClass]="customClass(item)"
-          suffixIcon="borneo-icon-16-arrow-top-right-box"
           (click)="itemClick.emit(item)"
         >
+          @if (variant() === 'checkbox') {
+            <ng-template sizedTemplate="prefix">
+              <span
+                [class]="
+                  isSelected(item.value)
+                    ? 'borneo-icon-16-checkmark-in-circle'
+                    : 'borneo-icon-16-circle'
+                "
+              ></span>
+            </ng-template>
+          }
+          @if (variant() === 'delete') {
+            <ng-template sizedTemplate="suffix">
+              <span class="borneo-icon-16-trash"></span>
+            </ng-template>
+          }
         </app-sized-container>
       </div>
     } @else {
@@ -44,16 +63,22 @@ export class ItemListComponent implements OnInit {
   @HostBinding('class') class =
     'bg-background-neutral-screen flex flex-col shadow-2xl rounded-md p-2 w-full';
   @Output() itemClick = new EventEmitter<SelectItem>();
-  selectionModel = input<SelectionModel<string>>();
   values = input<SelectItem['value'][]>([]);
   items = signal<SelectItem[]>([]);
   size = input(Size.medium);
   dataSource = input.required<any>();
+  variant = input<ItemVariant>('default');
   trackByFn = (_index: number, item: SelectItem) => item.value;
+
+  constructor(private selectionService: SelectionService<string>) {}
+
+  isSelected(value: string) {
+    return this.selectionService.isSelected(value);
+  }
 
   customClass(item: SelectItem) {
     let classes = 'ring-0 w-full hover:bg-background-neutral-100 rounded-md';
-    if (this.selectionModel()?.isSelected(item.value)) {
+    if (this.isSelected(item.value)) {
       classes = twMerge(
         classes,
         'bg-background-neutral-300 hover:bg-background-neutral-300',

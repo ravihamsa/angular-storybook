@@ -11,13 +11,14 @@ import { Component, computed, input, OnInit } from '@angular/core';
 import { SingleSelectInputComponent } from '../app/inputs/single-select-input.component';
 import { getStaticDataSource } from '../utils';
 import { Observable } from 'rxjs';
+import { MultiSelectInputComponent } from '../app/inputs/multi-select-input.component';
 import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-text-input-wrapper',
   template: `<form [formGroup]="formGroup" (submit)="onSubmit()">
-    <div class="grid grid-cols-3 gap-2">
-      <app-single-select-input
+    <div class="grid grid-cols-2 gap-2">
+      <app-multi-select-input
         [label]="label()"
         [caption]="caption()"
         [placeholder]="placeholder()"
@@ -28,13 +29,12 @@ import { JsonPipe } from '@angular/common';
         [canClear]="canClear()"
         formControlName="username"
       >
-      </app-single-select-input>
+      </app-multi-select-input>
     </div>
     {{ formGroup.value | json }}
-    <!--    <button type="submit">click me</button>-->
   </form>`,
   standalone: true,
-  imports: [ReactiveFormsModule, SingleSelectInputComponent, JsonPipe],
+  imports: [ReactiveFormsModule, MultiSelectInputComponent, JsonPipe],
 })
 class WrapperComponent implements OnInit {
   value = input<string>('');
@@ -60,6 +60,13 @@ class WrapperComponent implements OnInit {
         },
         this.required() ? Validators.required : [],
       ],
+      username2: [
+        {
+          value: this.value(),
+          disabled: this.disabled(),
+        },
+        this.required() ? Validators.required : [],
+      ],
     });
   }
   onSubmit() {
@@ -69,7 +76,7 @@ class WrapperComponent implements OnInit {
 }
 
 const meta: Meta<WrapperComponent> = {
-  title: 'Example/Single Select Input',
+  title: 'Example/Multi Select Input',
   component: WrapperComponent,
   tags: ['autodocs'],
   argTypes: {

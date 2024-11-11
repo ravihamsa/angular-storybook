@@ -57,9 +57,12 @@ export class SizedContainerComponent implements AfterContentInit {
 
   public get prefixIconClasses() {
     const classes = [];
-    const noIcons = !this.prefixIcon() && !this.suffixIcon();
-    const onlyLeftIcon = this.prefixIcon() && !this.suffixIcon();
-    const onlyRightIcon = !this.prefixIcon() && this.suffixIcon();
+    const noPrefixContent = !this.prefixTemplate && !this.prefixIcon();
+    const noSuffixContent = !this.suffixTemplate && !this.suffixIcon();
+
+    const noIcons = noPrefixContent && noSuffixContent;
+    const onlyLeftIcon = !noPrefixContent && noSuffixContent;
+    const onlyRightIcon = !noSuffixContent && noPrefixContent;
     const noLabel = !this.label();
 
     const iconRightSpacingMap = {
@@ -83,7 +86,7 @@ export class SizedContainerComponent implements AfterContentInit {
       classes.push(prefixIconPaddingMap[this.size()]);
     } else if (noIcons || onlyRightIcon) {
       classes.push(prefixNoIconPaddingMap[this.size()]);
-    } else if (this.prefixIcon()) {
+    } else if (!noPrefixContent) {
       classes.push(prefixIconPaddingMap[this.size()]);
       classes.push(iconRightSpacingMap[this.size()]);
     }
@@ -92,8 +95,11 @@ export class SizedContainerComponent implements AfterContentInit {
   }
   public get suffixIconClasses() {
     const classes = [];
-    const noIcons = !this.prefixIcon() && !this.suffixIcon();
-    const onlyLeftIcon = this.prefixIcon() && !this.suffixIcon();
+    const noPrefixContent = !this.prefixTemplate && !this.prefixIcon();
+    const noSuffixContent = !this.suffixTemplate && !this.suffixIcon();
+
+    const noIcons = noPrefixContent && noSuffixContent;
+    const onlyLeftIcon = !noPrefixContent && noSuffixContent;
     const noLabel = !this.label();
 
     const prefixNoIconPaddingMap = {
@@ -117,7 +123,7 @@ export class SizedContainerComponent implements AfterContentInit {
       //add no classes
     } else if (noIcons || onlyLeftIcon) {
       classes.push(prefixNoIconPaddingMap[this.size()]);
-    } else if (this.suffixIcon()) {
+    } else if (!noSuffixContent) {
       classes.push(prefixIconPaddingMap[this.size()]);
       classes.push(iconLeftSpacingMap[this.size()]);
     }
